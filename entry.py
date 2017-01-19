@@ -1,15 +1,17 @@
-from note import Note
 
 
-class Entry:
+from peewee import *
 
-    def __init__(self, name, minutes, timestamp, notes):
-        self.name = name
-        self.minutes = minutes
-        self.timestamp = timestamp
-        self.notes = []
-        for note in notes:
-            self.add_note(note)
+db = SqliteDatabase('worklog.db')
+
+
+class Entry(Model):
+    created_by = CharField(max_length=255)
+    name = CharField(max_length=255)
+    minutes = IntegerField()
+
+    class Meta:
+        database = db
 
     def __str__(self):
         notesConcatenated = "".join(str(note) + '\n' for note in self.notes)
@@ -19,3 +21,4 @@ class Entry:
 
     def add_note(self, noteText):
         self.notes.append(Note(noteText))
+

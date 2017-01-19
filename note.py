@@ -1,13 +1,24 @@
 import datetime
+from entry import Entry
+
+from peewee import *
+
+db = SqliteDatabase('worklog.db')
 
 
-class Note:
+class Note(Model):
+    entry = ForeignKeyField(Entry, related_name='notes')
+    content = CharField(max_length=255)
+    created_at = DateTimeField()
 
-    def __init__(self, content):
-        self.content = content
-        self.createdAt = datetime.datetime.now()
+    class Meta:
+        database = db
 
     def __str__(self):
         template = '%b %d, %Y - %H:%M:%S'
         return "{}\n-{}".format(self.content,
-                                self.createdAt.strftime(template))
+                                self.created_at.strftime(template))
+
+if __name__ == "__main__":
+    db.connect()
+    db.create_tables([Entry, Note], safe=True)

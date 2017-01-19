@@ -1,35 +1,32 @@
 from entry import Entry
-
+from note import Note
 import re
 import datetime
 
 
 class Log:
 
-    def __init__(self):
-        self.entries = []
-
     # Creates a new entry in this log
     def new(self):
-        name = input("What would you like to name this task? ")
+        username = input("What is your name? ")
+        task_name = input("What would you like to name this task? ")
         while True:
             try:
                 minutes = input("How many minutes have you "
                                 "spent working on it? ")
-                minutesDelta = datetime.timedelta(minutes=int(minutes))
+                new_entry = Entry.create(created_by=username,
+                                         name=task_name, minutes=minutes)
                 break
             except ValueError:
                 print("Invalid input. Please enter a number of minutes.")
-        notes = []
         while True:
             noteText = input('Please enter notes for this task. '
                              'Enter "q" to finish. ')
             if noteText.upper() == "Q":
                 break
             else:
-                notes.append(noteText)
-        self.entries.append(Entry(name, minutesDelta,
-                            datetime.datetime.now(), notes))
+                Note.create(entry=new_entry, content=noteText, 
+                            created_at=datetime.datetime.now())
 
     # Wrapper function to prompt user for lookup type
     def lookup(self):
