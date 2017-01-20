@@ -7,6 +7,7 @@ db = SqliteDatabase('worklog.db')
 
 class Entry(Model):
     created_by = CharField(max_length=255)
+    created_at = DateTimeField()
     name = CharField(max_length=255)
     minutes = IntegerField()
 
@@ -16,10 +17,10 @@ class Entry(Model):
     def __str__(self):
         notesConcatenated = "".join(str(note) + '\n' for note in self.notes)
         return """{} - {}\nTime Spent: {}\nNotes:\n{}
-                """.format(self.name, self.timestamp,
+                """.format(self.name, self.created_at,
                            self.minutes, notesConcatenated)
 
     def add_note(self, noteText):
         self.notes.append(Note(noteText))
 
-    
+

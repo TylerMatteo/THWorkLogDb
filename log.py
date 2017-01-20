@@ -14,7 +14,8 @@ class Log:
                 minutes = input("How many minutes have you "
                                 "spent working on it? ")
                 new_entry = Entry.create(created_by=username,
-                                         name=task_name, minutes=minutes)
+                                         name=task_name, minutes=minutes,
+                                         created_at=datetime.datetime.now())
                 break
             except ValueError:
                 print("Invalid input. Please enter a number of minutes.")
@@ -80,9 +81,8 @@ class Log:
     def find_by_employee(self, name):
         # Use a comprehension to grab all notes with the
         # given number of minutes
-        matches = Entry.get(Entry.created_by == name)
-
-        print("".join([str(entry) + '\n' for entry in matches]))
+        for entry in Entry.select().where(Entry.created_by == name):
+            print(entry)
 
     # def find_by_exact_match(self, phrase):
     #     # Use a comprehension to grab all entries containing the
@@ -100,4 +100,4 @@ class Log:
     #                or any([re.search(pattern, note.content)
     #                        for note in entry.notes])]
 
-        print("".join([str(entry) + '\n' for entry in matches]))
+    #    print("".join([str(entry) + '\n' for entry in matches]))
