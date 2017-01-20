@@ -22,3 +22,4 @@ class Entry(Model):
     def add_note(self, noteText):
         self.notes.append(Note(noteText))
 
+    

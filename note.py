@@ -5,7 +5,6 @@ from peewee import *
 
 db = SqliteDatabase('worklog.db')
 
-
 class Note(Model):
     entry = ForeignKeyField(Entry, related_name='notes')
     content = CharField(max_length=255)
