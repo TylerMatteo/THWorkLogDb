@@ -1,13 +1,12 @@
-
-
 from peewee import *
+import datetime
 
 db = SqliteDatabase('worklog.db')
 
 
 class Entry(Model):
     created_by = CharField(max_length=255)
-    created_at = DateTimeField()
+    created_at = DateTimeField(default=datetime.datetime.now())
     name = CharField(max_length=255)
     minutes = IntegerField()
 
@@ -19,8 +18,5 @@ class Entry(Model):
         return """{} - {}\nTime Spent: {}\nNotes:\n{}
                 """.format(self.name, self.created_at,
                            self.minutes, notesConcatenated)
-
-    def add_note(self, noteText):
-        self.notes.append(Note(noteText))
 
 
