@@ -18,8 +18,8 @@ while True:
     elif option.upper() == "L":
         while True:
             option = input("Would you like to lookup by [d]ate, "
-                               "[e]mployee, or [s]earch term? ")
-            if option.upper() in ['D','E','S']:
+                           "[e]mployee, or [s]earch term? ")
+            if option.upper() in ['D', 'E', 'S']:
                 log.lookup(option)
             else:
                 print("Invalid option, please try again.")

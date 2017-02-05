@@ -15,8 +15,6 @@ class Entry(Model):
 
     def __str__(self):
         notesConcatenated = "".join(str(note) + '\n' for note in self.notes)
-        return """{} - {}\nTime Spent: {}\nNotes:\n{}
-                """.format(self.name, self.created_at,
+        return """{}: {} - {}\nTime Spent: {}\nNotes:\n{}
+                """.format(self.created_by, self.name, self.created_at,
                            self.minutes, notesConcatenated)
-
-

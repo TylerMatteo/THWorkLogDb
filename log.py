@@ -1,23 +1,22 @@
 from entry import Entry
 from note import Note
 import datetime
-import pdb
+
 
 class Log:
 
     # Takes in details and creates a new entry in this log.
     def add_entry(self, username, task_name, minutes):
-        minutes = int(minutes);
+        minutes = int(minutes)
         new_entry = Entry.create(created_by=username,
                                  name=task_name, minutes=minutes)
-        pdb.set_trace()
         while True:
             noteText = input('Please enter notes for this task. '
                              'Enter "q" to finish. ')
             if noteText.upper() == "Q":
                 break
             else:
-                Note.create(entry=new_entry, content=noteText, 
+                Note.create(entry=new_entry, content=noteText,
                             created_at=datetime.datetime.now())
 
     # Wrapper function to prompt user for lookup type
@@ -51,4 +50,4 @@ class Log:
 
     def print_entries(self, entries):
         for entry in entries:
-            print(entry);
+            print(entry)

@@ -1,9 +1,8 @@
-import datetime
 from entry import Entry
-
 from peewee import *
 
 db = SqliteDatabase('worklog.db')
+
 
 class Note(Model):
     entry = ForeignKeyField(Entry, related_name='notes')
@@ -17,7 +16,3 @@ class Note(Model):
         template = '%b %d, %Y - %H:%M:%S'
         return "{}\n-{}".format(self.content,
                                 self.created_at.strftime(template))
-
-if __name__ == "__main__":
-    db.connect()
-    db.create_tables([Entry, Note], safe=True)
